@@ -32,7 +32,7 @@ def act(row, theta, bias):
 	activation = 1/(1+math.exp(-hasil))
 	return activation
 
-#mencari error, prediksi, theta yang baru dan bias yang baru untuk satu kali k
+#mencari error, accuracy, theta yang baru dan bias yang baru untuk satu kali k
 def train_theta(train, theta, alpha, bias):
     new_theta = theta
     new_bias = bias
