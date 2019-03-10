@@ -18,12 +18,11 @@ validasi.append(pd.concat([df.loc[20:29], df.loc[70:79]]))
 validasi.append(pd.concat([df.loc[30:39], df.loc[80:89]]))
 
 training = []
-training.append(df.drop(validasi[0].index))
-training.append(df.drop(validasi[1].index))
-training.append(df.drop(validasi[2].index))
-training.append(df.drop(validasi[3].index))
-training.append(df.drop(validasi[4].index))
-
+training.append(pd.concat([validasi[1],validasi[2],validasi[3],validasi[4]]))
+training.append(pd.concat([validasi[0],validasi[2],validasi[3],validasi[4]]))
+training.append(pd.concat([validasi[0],validasi[1],validasi[3],validasi[4]]))
+training.append(pd.concat([validasi[0],validasi[1],validasi[2],validasi[4]]))
+training.append(pd.concat([validasi[0],validasi[1],validasi[2],validasi[3]]))
 
 #mencari aktivasi
 def act(row, theta, bias):
@@ -76,8 +75,8 @@ def valid(train, theta, alpha, bias):
     return keluaran
 
 theta = [0.47,0.47,0.47,0.47]
-bias = 0.4
-alpha = 0.8 #dicoba juga 0.1
+bias = 0.6
+alpha = 0.1 #0.1 dan 0.8
 
 #untuk menampung di tiap epoch
 theta_list=[theta for i in range(5)]
@@ -101,9 +100,8 @@ for n in range(epoch_n):
     sum_avgerror_train = 0.0
     sum_accuracy_validasi = 0.0
     sum_avgerror_validasi = 0.0
-
-    #loop untuk data training
     for i in range(len(training)):
+        #training data
         x = train_theta(training[i].values.tolist(), theta_list[i], alpha, bias_list[i])
         train_avgerror_list.append(x[0])
         train_accuracy_list.append(x[1])
@@ -111,16 +109,14 @@ for n in range(epoch_n):
         bias_list[i]=x[3]
         sum_avgerror_train += x[0]
         sum_accuracy_train += x[1]
-    train_avgdariavgerror_list.append(sum_avgerror_train/len(training))
-    train_avgaccuracy_list.append(sum_accuracy_train/5)
-
-    #loop untuk data validasi
-    for i in range(len(validasi)):
+        #validasi data
         y = valid(validasi[i].values.tolist(), theta_list[i], alpha, bias_list[i])
         validasi_avgerror_list.append(y[0])
         validasi_accuracy_list.append(y[1])
         sum_avgerror_validasi += y[0]
         sum_accuracy_validasi += y[1]
+    train_avgdariavgerror_list.append(sum_avgerror_train/len(training))
+    train_avgaccuracy_list.append(sum_accuracy_train/5)
     validasi_avgdariavgerror_list.append(sum_avgerror_validasi/len(validasi))
     validasi_avgaccuracy_list.append(sum_accuracy_validasi/5)
 
