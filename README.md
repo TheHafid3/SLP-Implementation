@@ -1,2 +1,2 @@
-# K-Fold-Cross-Validation-Implementation
-Using Iris Dataset
+# STP-Implementation
+Using Iris Dataset (2 Class)
