@@ -121,7 +121,7 @@ for n in range(epoch_n):
     validasi_avgaccuracy_list.append(sum_accuracy_validasi/5)
 
 plt.figure('Accuracy')
-plt.plot(train_avgaccuracy_list,'b-', label='train')
+plt.plot(train_avgaccuracy_list,'b-', label='training')
 plt.plot(validasi_avgaccuracy_list,'r-', label='validasi')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
